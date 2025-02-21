@@ -62,7 +62,7 @@ app.delete('/api/tasks/:id', (req, res) => {
 
 app.use((req, res) => res.status(404).send('Route does not exist'))
 
-const port = process.env.PORT || 5000
+// const port = process.env.PORT || 5000
 
 const startApp = () => {
   try {
@@ -75,4 +75,10 @@ const startApp = () => {
   }
 }
 
-startApp()
+// startApp()
+
+/** Let's play around */
+const port = 3000
+app.listen(port, () => {
+  console.log('Server is running at port 300')
+})
