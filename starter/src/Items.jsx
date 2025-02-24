@@ -1,7 +1,5 @@
-import { useTodoContext } from './context/TodoContext'
 import SingleItem from './SingleItem'
 const Items = () => {
-  const { items } = useTodoContext()
   return (
     <div className="items">
       {items.map(item => {

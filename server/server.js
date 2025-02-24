@@ -21,7 +21,15 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('<h1>Master the Art of FullStack</h1>')
+  const { passion } = req?.query
+  req.q
+  res.send(`<h1>Task Manager App! Follow your ${passion} </h1>`)
+})
+
+app.get('/:main', (req, res) => {
+  const { main } = req?.params
+
+  res.send(`<h1>Goal is to be : ${main} </h1>`)
 })
 
 app.get('/api/tasks', (req, res) => {
@@ -80,5 +88,5 @@ const startApp = () => {
 /** Let's play around */
 const port = 3000
 app.listen(port, () => {
-  console.log('Server is running at port 300')
+  console.log('Server is running at port 3000')
 })
