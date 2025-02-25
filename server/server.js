@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid'
 const app = express()
 import morgan from 'morgan'
 
+// Our taskList
 let taskList = [
   { id: nanoid(), title: 'walk the dog', isDone: false },
   { id: nanoid(), title: 'wash dishes', isDone: false },
@@ -21,9 +22,9 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  const { passion } = req?.query
-  req.q
-  res.send(`<h1>Task Manager App! Follow your ${passion} </h1>`)
+  const { passion } = req?.query || 'Never Give up'
+
+  res.send(`<h1>Welcome to Task Manager Backend ${passion}</h1>`)
 })
 
 app.get('/:main', (req, res) => {
@@ -70,7 +71,7 @@ app.delete('/api/tasks/:id', (req, res) => {
 
 app.use((req, res) => res.status(404).send('Route does not exist'))
 
-// const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 const startApp = () => {
   try {
@@ -83,10 +84,4 @@ const startApp = () => {
   }
 }
 
-// startApp()
-
-/** Let's play around */
-const port = 3000
-app.listen(port, () => {
-  console.log('Server is running at port 3000')
-})
+startApp()

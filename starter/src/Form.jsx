@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import { useTodoContext } from './context/TodoContext'
 import { nanoid } from 'nanoid'
-
 import { toast } from 'react-toastify'
-const Form = () => {
+
+const Form = ({ items, setItems }) => {
   const [newItemName, setNewItemName] = useState('')
   const [isDisabled, setIsDisabled] = useState(false)
-  const { items, setItems } = useTodoContext()
 
   const handleSubmit = e => {
     e.preventDefault()
