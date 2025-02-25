@@ -33,19 +33,23 @@ app.get('/:main', (req, res) => {
   res.send(`<h1>Goal is to be : ${main} </h1>`)
 })
 
+// Send the tasks from BE
 app.get('/api/tasks', (req, res) => {
   res.json({ taskList })
 })
 
+// Create the resource & add it into the taskList in DB( Currently we are hard-coding it only)
 app.post('/api/tasks', (req, res) => {
   const { title } = req.body
   if (!title) {
-    res.status(400).json({ msg: 'please provide title' })
+    res.status(404).json({ success: false, msg: 'please provide a title' })
     return
   }
+
   const newTask = { id: nanoid(), title, isDone: false }
-  taskList = [...taskList, newTask]
-  res.json({ task: newTask })
+
+  const updatedTasks = [...taskList, newTask]
+  res.status(200).json({ success: true, taskList: updatedTasks })
 })
 
 app.patch('/api/tasks/:id', (req, res) => {

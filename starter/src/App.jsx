@@ -21,7 +21,7 @@ const App = () => {
         items={items}
         setItems={setItems}
       />
-      <Items items={items} />
+      <Items />
     </section>
   )
 }

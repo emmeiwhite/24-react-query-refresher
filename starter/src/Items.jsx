@@ -3,7 +3,7 @@ import SingleItem from './SingleItem'
 import customFetch from './utils'
 
 const Items = () => {
-  const { isError, error, isLoading, isSuccess, data } = useQuery({
+  const { isError, isLoading, data } = useQuery({
     queryKey: ['task'],
     queryFn: () => customFetch.get('/')
   })
