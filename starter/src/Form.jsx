@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
 import { toast } from 'react-toastify'
+import { useMutation } from '@tanstack/react-query'
+import customFetch from './utils'
 
 const Form = ({ items, setItems }) => {
   const [newItemName, setNewItemName] = useState('')
   const [isDisabled, setIsDisabled] = useState(false)
 
+  const result = useMutation({
+    mutationFn: () => customFetch.post('')
+  })
+
+  console.log(result)
   const handleSubmit = e => {
     e.preventDefault()
 
@@ -16,6 +23,8 @@ const Form = ({ items, setItems }) => {
       title: newItemName,
       isDone: false
     }
+
+    // Make a post request to the server
 
     setItems([...items, newItemObj]) // updating global state here in the component
     setNewItemName('')

@@ -48,8 +48,8 @@ app.post('/api/tasks', (req, res) => {
 
   const newTask = { id: nanoid(), title, isDone: false }
 
-  const updatedTasks = [...taskList, newTask]
-  res.status(200).json({ success: true, taskList: updatedTasks })
+  taskList = [...taskList, newTask]
+  res.status(200).json({ success: true, taskList })
 })
 
 app.patch('/api/tasks/:id', (req, res) => {
