@@ -9,7 +9,11 @@ const Form = ({ items, setItems }) => {
 
   // For create, delete, edit we use useMutation hook
   const { mutate: createTask, isLoading } = useMutation({
-    mutationFn: newTitle => customFetch.post('/', { title: newTitle })
+    mutationFn: newTitle => customFetch.post('/', { title: newTitle }),
+    onSuccess: () => {},
+    onError: error => {
+      toast.error(error.response.data.msg) // the server error
+    }
   })
 
   const handleSubmit = e => {

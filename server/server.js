@@ -40,7 +40,8 @@ app.get('/api/tasks', (req, res) => {
 
 // Create the resource & add it into the taskList in DB( Currently we are hard-coding it only)
 app.post('/api/tasks', (req, res) => {
-  const { title } = res.body
+  console.log(req.body)
+  const { title } = req.body
 
   // Validation on the backend
   if (!title) {
