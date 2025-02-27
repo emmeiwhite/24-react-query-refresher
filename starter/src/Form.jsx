@@ -6,37 +6,16 @@ import customFetch from './utils'
 
 const Form = ({ items, setItems }) => {
   const [newItemName, setNewItemName] = useState('')
-  const [isDisabled, setIsDisabled] = useState(false)
 
-  const result = useMutation({
-    mutationFn: () => customFetch.post('')
+  // For create, delete, edit we use useMutation hook
+  const { mutate: createTask, isLoading } = useMutation({
+    mutationFn: newTitle => customFetch.post('/', { title: newTitle })
   })
 
-  console.log(result)
   const handleSubmit = e => {
     e.preventDefault()
 
-    if (!newItemName) return
-
-    const newItemObj = {
-      id: nanoid(),
-      title: newItemName,
-      isDone: false
-    }
-
-    // Make a post request to the server
-
-    setItems([...items, newItemObj]) // updating global state here in the component
-    setNewItemName('')
-
-    // Show success toast
-    toast.success('Task added successfully!')
-
-    // Disable button for 3 seconds
-    setIsDisabled(true)
-    setTimeout(() => {
-      setIsDisabled(false)
-    }, 3000)
+    createTask(newItemName)
   }
 
   return (
@@ -52,8 +31,8 @@ const Form = ({ items, setItems }) => {
         <button
           type="submit"
           className="btn"
-          disabled={isDisabled}>
-          {isDisabled ? 'wait ...' : 'add task'}
+          disabled={isLoading}>
+          {isLoading ? 'wait ...' : 'add task'}
         </button>
       </div>
     </form>

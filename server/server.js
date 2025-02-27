@@ -40,16 +40,18 @@ app.get('/api/tasks', (req, res) => {
 
 // Create the resource & add it into the taskList in DB( Currently we are hard-coding it only)
 app.post('/api/tasks', (req, res) => {
-  const { title } = req.body
+  const { title } = res.body
+
+  // Validation on the backend
   if (!title) {
-    res.status(404).json({ success: false, msg: 'please provide a title' })
+    res.status(400).json({ success: false, msg: 'please provide a title' })
     return
   }
 
   const newTask = { id: nanoid(), title, isDone: false }
 
   taskList = [...taskList, newTask]
-  res.status(200).json({ success: true, taskList })
+  res.status(200).json({ success: true, newTask })
 })
 
 app.patch('/api/tasks/:id', (req, res) => {
