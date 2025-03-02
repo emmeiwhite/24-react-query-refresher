@@ -7,8 +7,21 @@ import customFetch from './utils'
 const Form = ({ items, setItems }) => {
   const [newItemName, setNewItemName] = useState('')
 
+  const queryClient = useQueryClient()
+
   const { mutate: createTask, isLoading } = useMutation({
-    mutationFn: item => customFetch.post('/', { title: item })
+    mutationFn: item => customFetch.post('/', { title: item }),
+    onSuccess: () => {
+      // 1. invalidate the queryKey: To make sure ReactQuery re-fetches the updated state
+      queryClient.invalidateQueries({ queryKey: ['tasks'] })
+      // 2. toast success message
+      toast.success('item added successfully!')
+      // 3. reset the newItemName (the input field)
+      setNewItemName('')
+    },
+    onError: error => {
+      toast.error(error.response.data.msg)
+    }
   })
 
   // // Accessing the queryClient with useQueryClient
