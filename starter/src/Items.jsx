@@ -3,10 +3,12 @@ import SingleItem from './SingleItem'
 import customFetch from './utils'
 
 const Items = () => {
-  const { isError, isLoading, data } = useQuery({
-    queryKey: ['task'],
+  const { isLoading, isError, data } = useQuery({
+    queryKey: ['tasks'],
     queryFn: () => customFetch.get('/')
   })
+
+  console.log(data)
 
   if (isError) return <p>Error fetching data!</p>
 
